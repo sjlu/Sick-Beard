@@ -2049,7 +2049,7 @@ class Home:
     def testSns(self, userKey=None):
         cherrypy.response.headers['Cache-Control'] = "max-age=0,no-cache,no-store"
 
-        result = notifiers.sns_notifier.test_notify()
+        result = notifiers.sns_notifier.test_notify(userKey)
         if result:
             return "SNS notification succeeded. Check your SNS clients to make sure it worked"
         else:
