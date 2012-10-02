@@ -2046,7 +2046,7 @@ class Home:
             return "Error sending Pushover notification"
 
     @cherrypy.expose
-    def testSns(self):
+    def testSns(self, userKey=None):
         cherrypy.response.headers['Cache-Control'] = "max-age=0,no-cache,no-store"
 
         result = notifiers.sns_notifier.test_notify()

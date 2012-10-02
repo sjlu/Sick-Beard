@@ -30,10 +30,10 @@ API_URL = "http://sns.burst-dev.com/api/notification"
 
 class SnsNotifier:
 
-    def test_notify(self):
+    def test_notify(self, userKey=None):
         return self._sendSns("This is a test notification from SickBeard", 'Notification Test')
 
-    def _sendSns(self, msg, sub):
+    def _sendSns(self, msg, sub, userKey = None):
         """
         Places a POST to the SNS service.
 
@@ -41,12 +41,15 @@ class SnsNotifier:
         sub: The title to send.
         """
         
+        if not userKey:
+            userKey = sickbeard.SNS_USERKEY
+
         # build up the URL and parameters
         msg = msg.strip()
         curUrl = API_URL
 
         data = urllib.urlencode({
-            'key': sickbeard.SNS_USERKEY,
+            'key': userKey,
             'subject': sub,
             'message': msg.encode('utf-8'),
 		})
@@ -71,7 +74,7 @@ class SnsNotifier:
         if sickbeard.SNS_NOTIFY_ONDOWNLOAD:
             self._notifySns(title, ep_name)
 
-    def _notifySns(self, subject, message):
+    def _notifySns(self, subject, message, userKey=None):
         """
         Sends a notification to the SNS service.
 
@@ -82,6 +85,9 @@ class SnsNotifier:
         if not sickbeard.USE_SNS:
             logger.log("SNS is not enabled, skipping.", logger.DEBUG)
             return False
+
+        if not userKey:
+            userKey = sickbeard.SNS_USERKEY
 
         self._sendSns(message, subject)
         return True
