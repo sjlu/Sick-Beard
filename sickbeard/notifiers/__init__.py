@@ -32,6 +32,7 @@ import synoindex
 import trakt
 import pytivo
 import nma
+import sns
 
 from sickbeard.common import *
 
@@ -43,6 +44,7 @@ twitter_notifier = tweet.TwitterNotifier()
 notifo_notifier = notifo.NotifoNotifier()
 boxcar_notifier = boxcar.BoxcarNotifier()
 pushover_notifier = pushover.PushoverNotifier()
+sns_notifier = sns.SnsNotifier()
 libnotify_notifier = libnotify.LibnotifyNotifier()
 nmj_notifier = nmj.NMJNotifier()
 synoindex_notifier = synoindex.synoIndexNotifier()
@@ -63,6 +65,7 @@ notifiers = [
     synoindex_notifier,
     boxcar_notifier,
     pushover_notifier,
+    sns_notifier,
     trakt_notifier,
     pytivo_notifier,
     nma_notifier,

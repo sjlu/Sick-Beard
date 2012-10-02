@@ -1146,6 +1146,7 @@ class ConfigNotifications:
                           use_notifo=None, notifo_notify_onsnatch=None, notifo_notify_ondownload=None, notifo_username=None, notifo_apisecret=None,
                           use_boxcar=None, boxcar_notify_onsnatch=None, boxcar_notify_ondownload=None, boxcar_username=None,
                           use_pushover=None, pushover_notify_onsnatch=None, pushover_notify_ondownload=None, pushover_userkey=None,
+                          use_sns=None, sns_notify_onsnatch=None, sns_notify_ondownload=None, sns_userkey=None,
                           use_libnotify=None, libnotify_notify_onsnatch=None, libnotify_notify_ondownload=None,
                           use_nmj=None, nmj_host=None, nmj_database=None, nmj_mount=None, use_synoindex=None,
                           use_trakt=None, trakt_username=None, trakt_password=None, trakt_api=None,
@@ -1285,6 +1286,20 @@ class ConfigNotifications:
         else:
             use_pushover = 0
 
+        if sns_notify_onsnatch == "on":
+            sns_notify_onsnatch = 1
+        else:
+            sns_notify_onsnatch = 0
+
+        if sns_notify_ondownload == "on":
+            sns_notify_ondownload = 1
+        else:
+            sns_notify_ondownload = 0
+        if use_sns == "on":
+            use_sns = 1
+        else:
+            use_sns = 0
+
         if use_nmj == "on":
             use_nmj = 1
         else:
@@ -1384,6 +1399,11 @@ class ConfigNotifications:
         sickbeard.PUSHOVER_NOTIFY_ONSNATCH = pushover_notify_onsnatch
         sickbeard.PUSHOVER_NOTIFY_ONDOWNLOAD = pushover_notify_ondownload
         sickbeard.PUSHOVER_USERKEY = pushover_userkey
+
+        sickbeard.USE_SNS = use_sns
+        sickbeard.SNS_NOTIFY_ONSNATCH = sns_notify_onsnatch
+        sickbeard.SNS_NOTIFY_ONDOWNLOAD = sns_notify_ondownload
+        sickbeard.SNS_USERKEY = sns_userkey
 
         sickbeard.USE_LIBNOTIFY = use_libnotify == "on"
         sickbeard.LIBNOTIFY_NOTIFY_ONSNATCH = libnotify_notify_onsnatch == "on"
@@ -2024,6 +2044,16 @@ class Home:
             return "Pushover notification succeeded. Check your Pushover clients to make sure it worked"
         else:
             return "Error sending Pushover notification"
+
+    @cherrypy.expose
+    def testSns(self):
+        cherrypy.response.headers['Cache-Control'] = "max-age=0,no-cache,no-store"
+
+        result = notifiers.sns_notifier.test_notify()
+        if result:
+            return "SNS notification succeeded. Check your SNS clients to make sure it worked"
+        else:
+            return "Error sending SNS notification"
 
     @cherrypy.expose
     def twitterStep1(self):

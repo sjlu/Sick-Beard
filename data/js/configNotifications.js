@@ -59,6 +59,13 @@ $(document).ready(function(){
         function (data){ $('#testPushover-result').html(data); });
     });
 
+    $('#testSns').click(function(){
+        $('#testSns-result').html(loading);
+        var sns_userkey = $("#sns_userkey").val();
+        $.get(sbRoot+"/home/testSns", {'userKey': sns_userkey},
+        function (data){ $('#testSns-result').html(data); });
+    });
+
     $('#testLibnotify').click(function(){
         $('#testLibnotify-result').html(loading);
         $.get(sbRoot+"/home/testLibnotify",

@@ -629,6 +629,54 @@
 
                 <div class="component-group clearfix">
                     <div class="component-group-desc">
+                        <img class="notifier-icon" src="$sbRoot/images/notifiers/sns.png" alt="" title="SNS" />
+                        <h3><a href="http://sns.burst-dev.com/" onclick="window.open(this.href, '_blank'); return false;">SNS</a></h3>
+                        <p>Seamless push notifications to your iOS Device.</p>
+                    </div>
+                    <fieldset class="component-group-list">
+                        <div class="field-pair">
+                            <input type="checkbox" class="enabler" name="use_sns" id="use_sns" #if $sickbeard.USE_SNS then "checked=\"checked\"" else ""# />
+                            <label class="clearfix" for="use_sns">
+                                <span class="component-title">Enable</span>
+                                <span class="component-desc">Should Sick Beard send notifications through SNS?</span>
+                            </label>
+                        </div>
+
+                        <div id="content_use_sns">
+                            <div class="field-pair">
+                                <input type="checkbox" name="sns_notify_onsnatch" id="sns_notify_onsnatch" #if $sickbeard.SNS_NOTIFY_ONSNATCH then "checked=\"checked\"" else ""# />
+                                <label class="clearfix" for="sns_notify_onsnatch">
+                                    <span class="component-title">Notify on Snatch</span>
+                                    <span class="component-desc">Send notification when we start a download?</span>
+                                </label>
+                            </div>
+                            <div class="field-pair">
+                                <input type="checkbox" name="sns_notify_ondownload" id="sns_notify_ondownload" #if $sickbeard.SNS_NOTIFY_ONDOWNLOAD then "checked=\"checked\"" else ""# />
+                                <label class="clearfix" for="sns_notify_ondownload">
+                                    <span class="component-title">Notify on Download</span>
+                                    <span class="component-desc">Send notification when we finish a download?</span>
+                                </label>
+                            </div>
+                            <div class="field-pair">
+                                <label class="nocheck clearfix">
+                                    <span class="component-title">&nbsp;</span>
+                                    <input type="text" name="sns_userkey" id="sns_userkey" value="$sickbeard.SNS_USERKEY" size="35" />
+                                </label>
+                                <label class="nocheck clearfix">
+                                    <span class="component-title">&nbsp;</span>
+                                    <span class="component-desc">Your SNS API Key</span>
+                                </label>
+                            </div>
+                            <div class="testNotification" id="testSns-result">Click below to test.</div>
+                            <input type="button" class="btn" value="Test Sns" id="testSns" />
+                            <input type="submit" class="btn config_submitter" value="Save Changes" />
+                        </div><!-- /content_use_sns //-->
+
+                    </fieldset>
+                </div><!-- /sns component-group //-->
+
+                <div class="component-group clearfix">
+                    <div class="component-group-desc">
                         <img class="notifier-icon" src="$sbRoot/images/notifiers/boxcar.png" alt="" title="Boxcar" />
                         <h3><a href="http://boxcar.io/" onclick="window.open(this.href, '_blank'); return false;">Boxcar</a></h3>
                         <p>Read your messages where and when you want them! A subscription will be send if needed.</p>
